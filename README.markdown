@@ -21,10 +21,10 @@ Any omitted parameters will be prompted for interactively:
 
 ```sh
 gitlab-le \
---email      example@example.com     `# Let's Encrypt email address` \
---domain     example.com             `# Domain that the cert will be issued for` \
---repository gitlab_user/gitlab_repo `# Namespaced repository identifier` \
---token      ...                     `# GitLab personal access token, see https://gitlab.com/profile/personal_access_tokens`
+--email      example@example.com         `# Let's Encrypt email address` \
+--domain     example.com,www.example.com `# Domains that the cert will be issued for` \
+--repository gitlab_user/gitlab_repo     `# Namespaced repository identifier` \
+--token      ...                         `# GitLab personal access token, see https://gitlab.com/profile/personal_access_tokens`
 ```
 
 ## Example

@@ -41,7 +41,7 @@ module.exports = (options) => {
         });
     };
 
-    const uploadChallenge = (key, value, repo, domain) => {
+    const uploadChallenge = (key, value, repo, hostname) => {
         // Need to bluebird-ify to use .asCallback()
         return Promise.resolve(gitlabRequest.post({
             url: `/projects/${repo.id}/repository/files`,
@@ -51,7 +51,7 @@ module.exports = (options) => {
                 branch_name: 'master',
                 content: value
             }
-        })).return([`http://${domain}/.well-known/acme-challenge/${key}`, value]);
+        })).return([`http://${hostname}/.well-known/acme-challenge/${key}`, value]);
     };
 
     const deleteChallenges = (key, repo) => {
@@ -80,9 +80,9 @@ module.exports = (options) => {
                     newCertUrl: urls.newCert,
                     domainPrivateKeyPem: domainKp.privateKeyPem,
                     accountPrivateKeyPem: accountKp.privateKeyPem,
-                    domains: [options.domain],
+                    domains: options.domains,
                     setChallenge: (hostname, key, value, cb) => {
-                        return uploadChallenge(key, value, repo, options.domain)
+                        return uploadChallenge(key, value, repo, hostname)
                             .tap(res => console.log(`Uploaded challenge file, waiting for it to be available at ${res[0]}`))
                             .spread(pollUntilDeployed)
                             .asCallback(cb);

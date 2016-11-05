@@ -56,6 +56,7 @@ const inputs = [
 
 readSequential(inputs)
     .then(options => {
+        options.domains = options.domain.split(',');
         return getCertificate(options).then(certs => {
             console.log(`\nSuccess! Go to https://gitlab.com/${options.repository}/pages and create/update a domain with the following settings:\n`);
             console.log(`Domain: ${options.domain}\n`);
